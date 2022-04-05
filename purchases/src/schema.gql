@@ -27,7 +27,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Customer {
+  id: ID!
+  purchases: [Purchase!]!
+}
+
 type Query {
+  me: Customer!
   products: [Product!]!
   purchases: [Purchase!]!
 }

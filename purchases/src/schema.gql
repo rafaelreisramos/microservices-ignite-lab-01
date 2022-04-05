@@ -12,6 +12,7 @@ type Purchase {
   id: ID!
   status: PurchaseStatus!
   createdAt: DateTime!
+  product: Product!
 }
 
 """Available purchase statuses"""

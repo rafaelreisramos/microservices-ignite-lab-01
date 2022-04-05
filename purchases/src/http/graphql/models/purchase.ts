@@ -19,4 +19,5 @@ export class Purchase {
   status: PurchaseStatus;
   @Field(() => Date)
   createdAt: Date;
+  productId: string;
 }

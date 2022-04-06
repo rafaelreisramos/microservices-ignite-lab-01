@@ -19,11 +19,11 @@ export class StudentsResover {
     return this.studentsService.listAll();
   }
 
-  @Query(() => Student)
-  @UseGuards(AuthorizationGuard)
-  me(@CurrentUser() user: AuthUser) {
-    return this.studentsService.findStudentByAuthUserId(user.sub);
-  }
+  // @Query(() => Student)
+  // @UseGuards(AuthorizationGuard)
+  // me(@CurrentUser() user: AuthUser) {
+  //   return this.studentsService.findStudentByAuthUserId(user.sub);
+  // }
 
   @ResolveField()
   enrollments(@Parent() student: Student) {

@@ -1,4 +1,10 @@
-import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+  ResolveReference,
+} from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { Customer } from '../models/customer';
 import { Purchase } from '../models/purchase';
@@ -23,5 +29,10 @@ export class CustomersResolver {
   @UseGuards(AuthorizationGuard)
   me(@CurrentUser() user: AuthUser) {
     return this.customersService.findCustomerByAuthUserId(user.sub);
+  }
+
+  @ResolveReference()
+  resolveReference(reference: { authUserId: string }) {
+    return this.customersService.findCustomerByAuthUserId(reference.authUserId);
   }
 }

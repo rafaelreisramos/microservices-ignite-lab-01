@@ -39,4 +39,13 @@ export class EnrollmentsService {
       },
     });
   }
+
+  create({ studentId, courseId }: CourseAndStudentParams) {
+    return this.prisma.enrollment.create({
+      data: {
+        studentId,
+        courseId,
+      },
+    });
+  }
 }

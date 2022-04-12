@@ -1,5 +1,11 @@
 {
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+  "eslint.workingDirectories": [
+    "./web",
+    "./classroom",
+    "./purchases",
+    "./gateway"
+  ]
 }

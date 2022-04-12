@@ -1,28 +1,26 @@
-import {
-  getAccessToken,
-  useUser,
-  withPageAuthRequired,
-} from "@auth0/nextjs-auth0"
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0"
+import { NextPage } from "next"
+import { useMeQuery } from "../../graphql/generated/graphql"
+import { ssrGetProducts } from "../../graphql/generated/page"
+import { withApollo } from "../../lib/withApollo"
 
-const Home = () => {
+const Home: NextPage = () => {
   const { user } = useUser()
+  const { data: me } = useMeQuery()
+
   return (
     <div>
       <h1>Hello Next.js</h1>
+      <pre>{JSON.stringify(me, null, 2)}</pre>
       <pre>{JSON.stringify(user, null, 2)}</pre>
-      <a href="/api/auth/logout">Logout</a>
     </div>
   )
 }
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res }) => {
-    console.log(getAccessToken(req, res))
-
-    return {
-      props: {},
-    }
+  getServerSideProps: async (ctx) => {
+    return { props: {} }
   },
 })
 
-export default Home
+export default withApollo(ssrGetProducts.withPage()(Home))

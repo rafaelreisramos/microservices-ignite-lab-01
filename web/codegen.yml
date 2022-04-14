@@ -1,30 +1,43 @@
 overwrite: true
 schema: "http://localhost:3332/graphql"
-documents: "./src/graphql/**/*.graphql"
 generates:
-  src/graphql/generated/graphql.tsx:
+  src/graphql/generated/graphql.ts:
+    documents: "./src/graphql/**/**/*.graphql"
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
     config:
-      reactApolloVersion: 3
       withHooks: true
-      withHOC: false
-      withComponent: false
       exportFragmentSpreadSubTypes: true
       documentMode: graphQLTag
-  src/graphql/generated/page.tsx:
+  src/graphql/generated/next-page-private.tsx:
+    documents: "./src/graphql/**/private/*.graphql"
+    plugins:
+      - "graphql-codegen-apollo-next-ssr"
+    preset: import-types
+    presetConfig:
+      typesPath: ./graphql
     config:
       documentMode: external
-      importDocumentNodeExternallyFrom: ./graphql
       reactApolloVersion: 3
+      importDocumentNodeExternallyFrom: ./graphql
       withHooks: true
       contextType: "ApolloClientContext"
       contextTypeRequired: true
       apolloClientInstanceImport: "../../lib/withApollo"
+  src/graphql/generated/next-page-public.tsx:
+    documents: "./src/graphql/**/public/*.graphql"
+    plugins:
+      - "graphql-codegen-apollo-next-ssr"
     preset: import-types
     presetConfig:
       typesPath: ./graphql
-    plugins:
-      - "graphql-codegen-apollo-next-ssr"
+    config:
+      documentMode: external
+      reactApolloVersion: 3
+      importDocumentNodeExternallyFrom: ./graphql
+      withHooks: true
+      contextType: "ApolloClientContext"
+      contextTypeRequired: false
+      apolloClientInstanceImport: "../../lib/withApolloPublic"

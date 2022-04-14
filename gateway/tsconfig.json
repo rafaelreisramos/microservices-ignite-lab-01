@@ -1,6 +1,7 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
+    "incremental": true,
+    "skipLibCheck": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -15,5 +16,6 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "rootDirs": ["./src"]
 }
